@@ -1,0 +1,5 @@
+@EndUserText.label: 'SD - XLWB XML part từ DDIC'
+@ObjectModel.leadingEntity.name: 'ZC_XLWB_PART'
+define service ZUI_XLWB_PART provider contracts odata_v4_ui {
+  expose ZC_XLWB_PART as Part;
+}

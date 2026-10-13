@@ -1,0 +1,5 @@
+@EndUserText.label: 'SD - XLWB example catalog'
+@ObjectModel.leadingEntity.name: 'ZC_XLWB_DEMO'
+define service ZUI_XLWB_DEMO provider contracts odata_v4_ui {
+  expose ZC_XLWB_DEMO as Example;
+}

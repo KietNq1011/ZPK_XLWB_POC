@@ -1,0 +1,122 @@
+@Metadata.layer: #CORE
+
+@UI: { headerInfo: { typeName: 'Excel template',
+                     typeNamePlural: 'Excel templates',
+                     title: { type: #STANDARD, value: 'FormName' },
+                     description: { type: #STANDARD, value: 'Descr' } },
+       presentationVariant: [ { sortOrder: [ { by: 'FormName', direction: #ASC } ] } ] }
+
+annotate entity ZC_XLWB_TMPL with
+{
+  @UI.facet: [ { id: 'General',
+                 purpose: #STANDARD,
+                 type: #COLLECTION,
+                 label: 'Template',
+                 position: 10 },
+               { id: 'Head',
+                 parentId: 'General',
+                 purpose: #STANDARD,
+                 type: #FIELDGROUP_REFERENCE,
+                 label: 'General',
+                 position: 10,
+                 targetQualifier: 'Head' },
+               { id: 'File',
+                 parentId: 'General',
+                 purpose: #STANDARD,
+                 type: #FIELDGROUP_REFERENCE,
+                 label: 'Template file',
+                 position: 20,
+                 targetQualifier: 'File' },
+               { id: 'Source',
+                 parentId: 'General',
+                 purpose: #STANDARD,
+                 type: #FIELDGROUP_REFERENCE,
+                 label: 'Data source & preview',
+                 position: 25,
+                 targetQualifier: 'Source' },
+               { id: 'Admin',
+                 parentId: 'General',
+                 purpose: #STANDARD,
+                 type: #FIELDGROUP_REFERENCE,
+                 label: 'Administrative data',
+                 position: 30,
+                 targetQualifier: 'Admin' } ]
+
+  @UI: { lineItem:      [ { position: 10, importance: #HIGH },
+                          { type: #FOR_ACTION, dataAction: 'previewRender',  label: 'Preview' },
+                          { type: #FOR_ACTION, dataAction: 'prepareDocx',    label: 'Prepare DOCX' },
+                          { type: #FOR_ACTION, dataAction: 'exportTemplate', label: 'Export JSON' },
+                          { type: #FOR_ACTION, dataAction: 'importTemplate', label: 'Import JSON' } ],
+         identification: [ { position: 10 },
+                          { type: #FOR_ACTION, dataAction: 'previewRender',  label: 'Preview' },
+                          { type: #FOR_ACTION, dataAction: 'prepareDocx',    label: 'Prepare DOCX' },
+                          { type: #FOR_ACTION, dataAction: 'exportTemplate', label: 'Export JSON' } ],
+         fieldGroup:    [ { qualifier: 'Head', position: 10 } ],
+         selectionField: [ { position: 10 } ] }
+  FormName;
+
+  @UI: { lineItem:      [ { position: 20, importance: #HIGH } ],
+         identification: [ { position: 20 } ],
+         fieldGroup:    [ { qualifier: 'Head', position: 20 } ] }
+  Descr;
+
+  @UI: { lineItem:      [ { position: 30, importance: #HIGH } ],
+         identification: [ { position: 30 } ],
+         fieldGroup:    [ { qualifier: 'Head', position: 30 } ],
+         selectionField: [ { position: 20 } ] }
+  Engine;
+
+  @UI: { lineItem:      [ { position: 40, importance: #MEDIUM } ],
+         identification: [ { position: 40 } ],
+         fieldGroup:    [ { qualifier: 'Head', position: 40 } ] }
+  IsActive;
+
+  @UI: { lineItem:      [ { position: 50, importance: #HIGH, label: 'File' } ],
+         identification: [ { position: 50 } ],
+         fieldGroup:    [ { qualifier: 'File', position: 10 } ] }
+  Template;
+
+  @UI: { identification: [ { position: 60 } ],
+         fieldGroup:    [ { qualifier: 'File', position: 20 } ] }
+  FileName;
+
+  @UI: { identification: [ { position: 70 } ],
+         fieldGroup:    [ { qualifier: 'File', position: 30 } ] }
+  MimeType;
+
+  @UI: { lineItem:      [ { position: 45, importance: #LOW } ],
+         identification: [ { position: 80 } ],
+         fieldGroup:    [ { qualifier: 'Source', position: 10 } ] }
+  SourceClass;
+
+  @UI: { identification: [ { position: 90 } ],
+         fieldGroup:    [ { qualifier: 'Source', position: 20 } ] }
+  @UI.multiLineText: true
+  SampleJson;
+
+  @UI: { lineItem:      [ { position: 55, importance: #HIGH, label: 'Preview / export file' } ],
+         identification: [ { position: 95 } ],
+         fieldGroup:    [ { qualifier: 'Source', position: 30 } ] }
+  PreviewFile;
+
+  @UI.hidden: true
+  PreviewName;
+
+  @UI.hidden: true
+  PreviewMime;
+
+  @UI: { fieldGroup: [ { qualifier: 'Admin', position: 10 } ] }
+  CreatedBy;
+
+  @UI: { fieldGroup: [ { qualifier: 'Admin', position: 20 } ] }
+  CreatedAt;
+
+  @UI: { fieldGroup: [ { qualifier: 'Admin', position: 30 } ] }
+  LocalLastChangedBy;
+
+  @UI: { fieldGroup: [ { qualifier: 'Admin', position: 40 } ] }
+  LocalLastChangedAt;
+
+  @UI.hidden: true
+  LastChangedAt;
+}

@@ -1,0 +1,21 @@
+projection;
+strict ( 2 );
+use draft;
+
+define behavior for ZC_XLWB_TMPL alias Template
+{
+  use create;
+  use update;
+  use delete;
+
+  use action previewRender;
+  use action prepareDocx;
+  use action exportTemplate;
+  use action importTemplate;
+
+  use action Edit;
+  use action Activate;
+  use action Discard;
+  use action Resume;
+  use action Prepare;
+}

@@ -1,0 +1,5 @@
+@EndUserText.label: 'SD - XLWB template maintenance'
+@ObjectModel.leadingEntity.name: 'ZC_XLWB_TMPL'
+define service ZUI_XLWB_TMPL provider contracts odata_v4_ui {
+  expose ZC_XLWB_TMPL as Template;
+}

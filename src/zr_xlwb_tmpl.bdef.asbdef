@@ -1,0 +1,68 @@
+managed implementation in class zbp_r_xlwb_tmpl unique;
+strict ( 2 );
+with draft;
+
+define behavior for ZR_XLWB_TMPL alias Template
+persistent table zxlwb_tmpl
+draft table zxlwb_tmpl_d
+lock master total etag LastChangedAt
+authorization master ( global )
+etag master LocalLastChangedAt
+{
+  field ( readonly ) CreatedBy, CreatedAt, LocalLastChangedBy, LocalLastChangedAt, LastChangedAt,
+                     PreviewName, PreviewMime, PreviewFile;
+  field ( mandatory : create ) FormName, Engine;
+  field ( readonly : update ) FormName;
+
+  create;
+  update;
+  delete;
+
+  // kết quả ghi vào cột PreviewFile (largeObject) — FE không hiển thị được
+  // result kiểu abstract entity, còn stream field thì tải trực tiếp được
+  action previewRender parameter ZXLWB_A_JSON_P result [1] $self;
+  // DOCX: nhúng custom XML part sinh từ DDIC structure/table (spec trong payload)
+  action prepareDocx parameter ZXLWB_A_JSON_P result [1] $self;
+  action exportTemplate result [1] $self;
+  static factory action importTemplate parameter ZXLWB_A_JSON_P [1];
+
+  draft action Edit;
+  draft action Activate optimized;
+  draft action Discard;
+  draft action Resume;
+  draft determine action Prepare
+  {
+    validation validateEngine;
+    validation validateTemplate;
+    validation validateSource;
+    validation validatePlaceholders;
+  }
+
+  determination setDefaults on modify { create; field Engine, Template; }
+
+  validation validateEngine       on save { field Engine;   create; update; }
+  validation validateTemplate     on save { field Template; create; update; }
+  validation validateSource       on save { field SourceClass; create; update; }
+  validation validatePlaceholders on save { field Template, SampleJson; create; update; }
+
+  mapping for zxlwb_tmpl
+    {
+      FormName           = form_name;
+      Descr              = descr;
+      Engine             = engine;
+      MimeType           = mime_type;
+      FileName           = file_name;
+      IsActive           = is_active;
+      Template           = template;
+      SourceClass        = source_class;
+      SampleJson         = sample_json;
+      PreviewName        = preview_name;
+      PreviewMime        = preview_mime;
+      PreviewFile        = preview_file;
+      CreatedBy          = created_by;
+      CreatedAt          = created_at;
+      LocalLastChangedBy = last_changed_by;
+      LocalLastChangedAt = last_changed_at;
+      LastChangedAt      = last_changed_glo;
+    }
+}

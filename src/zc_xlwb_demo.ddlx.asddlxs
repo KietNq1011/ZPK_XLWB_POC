@@ -1,0 +1,122 @@
+@Metadata.layer: #CORE
+
+@UI: { headerInfo: { typeName: 'Ví dụ XLWB',
+                     typeNamePlural: 'Ví dụ XLWB',
+                     title: { type: #STANDARD, value: 'ExampleId' },
+                     description: { type: #STANDARD, value: 'Title' } },
+       presentationVariant: [ { sortOrder: [ { by: 'Seq', direction: #ASC } ] } ] }
+
+annotate entity ZC_XLWB_DEMO with
+{
+  @UI.facet: [ { id: 'Head',
+                 purpose: #STANDARD,
+                 type: #FIELDGROUP_REFERENCE,
+                 label: 'Mô tả ví dụ',
+                 position: 10,
+                 targetQualifier: 'Head' },
+               { id: 'S1',
+                 purpose: #STANDARD,
+                 type: #FIELDGROUP_REFERENCE,
+                 label: 'Bước 1 — Tạo biến (context)',
+                 position: 20,
+                 targetQualifier: 'S1' },
+               { id: 'SX',
+                 purpose: #STANDARD,
+                 type: #FIELDGROUP_REFERENCE,
+                 label: 'Bước 2 — Mở Excel, vẽ form',
+                 position: 30,
+                 targetQualifier: 'SX' },
+               { id: 'S2',
+                 purpose: #STANDARD,
+                 type: #FIELDGROUP_REFERENCE,
+                 label: 'Bước 3 — Gán placeholder vào ô',
+                 position: 40,
+                 targetQualifier: 'S2' },
+               { id: 'S3',
+                 purpose: #STANDARD,
+                 type: #FIELDGROUP_REFERENCE,
+                 label: 'Bước 4 — Gọi engine',
+                 position: 50,
+                 targetQualifier: 'S3' },
+               { id: 'S4',
+                 purpose: #STANDARD,
+                 type: #FIELDGROUP_REFERENCE,
+                 label: 'Lưu ý & cạm bẫy',
+                 position: 60,
+                 targetQualifier: 'S4' },
+               { id: 'Dl',
+                 purpose: #STANDARD,
+                 type: #FIELDGROUP_REFERENCE,
+                 label: 'Tải file Excel mẫu',
+                 position: 70,
+                 targetQualifier: 'Dl' } ]
+
+  @UI: { lineItem:       [ { position: 10, importance: #HIGH },
+                           { type: #FOR_ACTION, dataAction: 'regenerateFile', label: 'Gen lại file mẫu' },
+                           { type: #FOR_ACTION, dataAction: 'regenerateAll',  label: 'Gen lại tất cả' } ],
+         identification: [ { position: 10 },
+                           { type: #FOR_ACTION, dataAction: 'regenerateFile', label: 'Gen lại file mẫu' } ],
+         selectionField: [ { position: 10 } ],
+         fieldGroup:     [ { qualifier: 'Head', position: 10 } ] }
+  ExampleId;
+
+  @UI: { lineItem:       [ { position: 20, importance: #HIGH } ],
+         identification: [ { position: 20 } ],
+         fieldGroup:     [ { qualifier: 'Head', position: 20 } ] }
+  Title;
+
+  @UI: { lineItem:       [ { position: 30, importance: #MEDIUM, label: 'XLWB' } ],
+         fieldGroup:     [ { qualifier: 'Head', position: 30 } ] }
+  XlwbRef;
+
+  @UI: { lineItem:       [ { position: 40, importance: #MEDIUM } ],
+         selectionField: [ { position: 20 } ],
+         fieldGroup:     [ { qualifier: 'Head', position: 40 } ] }
+  EngineType;
+
+  @UI: { fieldGroup: [ { qualifier: 'Head', position: 50 } ] }
+  @UI.multiLineText: true
+  Purpose;
+
+  @UI: { fieldGroup: [ { qualifier: 'Head', position: 60 } ] }
+  TemplateForm;
+
+  @UI: { fieldGroup: [ { qualifier: 'S1', position: 10 } ] }
+  @UI.multiLineText: true
+  StepContext;
+
+  @UI: { fieldGroup: [ { qualifier: 'SX', position: 10 } ] }
+  @UI.multiLineText: true
+  StepExcel;
+
+  @UI: { fieldGroup: [ { qualifier: 'S2', position: 10 } ] }
+  @UI.multiLineText: true
+  StepTemplate;
+
+  @UI: { fieldGroup: [ { qualifier: 'S3', position: 10 } ] }
+  @UI.multiLineText: true
+  StepEngine;
+
+  @UI: { fieldGroup: [ { qualifier: 'S4', position: 10 } ] }
+  @UI.multiLineText: true
+  Notes;
+
+  @UI: { lineItem:   [ { position: 50, importance: #HIGH, label: 'File mẫu' } ],
+         fieldGroup: [ { qualifier: 'Dl', position: 10 } ] }
+  Content;
+
+  @UI: { fieldGroup: [ { qualifier: 'Dl', position: 20 } ] }
+  FileName;
+
+  @UI.hidden: true
+  MimeType;
+
+  @UI.hidden: true
+  Seq;
+
+  @UI.hidden: true
+  CreatedBy;
+
+  @UI.hidden: true
+  CreatedAt;
+}

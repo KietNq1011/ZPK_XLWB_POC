@@ -1,0 +1,55 @@
+managed implementation in class zbp_r_xlwb_part unique;
+strict ( 2 );
+with draft;
+
+define behavior for ZR_XLWB_PART alias Part
+persistent table zxlwb_part
+draft table zxlwb_part_d
+lock master total etag LastChangedAt
+authorization master ( global )
+etag master LocalLastChangedAt
+{
+  field ( readonly ) CreatedBy, CreatedAt, LocalLastChangedBy, LocalLastChangedAt, LastChangedAt,
+                     DdicKind, SampleJson, PartMime, PartFileName, PartFile;
+  field ( mandatory : create ) PartName, DdicName;
+  field ( readonly : update ) PartName;
+
+  create;
+  update;
+  delete;
+
+  // sinh XML part từ DDIC — file ghi vào cột PartFile (largeObject) để FE tải trực tiếp
+  action generateXml result [1] $self;
+
+  draft action Edit;
+  draft action Activate optimized;
+  draft action Discard;
+  draft action Resume;
+  draft determine action Prepare
+  {
+    validation validateDdic;
+  }
+
+  determination setDefaults on modify { create; field DdicName; }
+
+  validation validateDdic on save { field DdicName; create; update; }
+
+  mapping for zxlwb_part
+    {
+      PartName           = part_name;
+      Descr              = descr;
+      DdicName           = ddic_name;
+      DdicKind           = ddic_kind;
+      RootName           = root_name;
+      Namespace          = namespace;
+      SampleJson         = sample_json;
+      PartMime           = part_mime;
+      PartFileName       = part_fname;
+      PartFile           = part_file;
+      CreatedBy          = created_by;
+      CreatedAt          = created_at;
+      LocalLastChangedBy = last_changed_by;
+      LocalLastChangedAt = last_changed_at;
+      LastChangedAt      = last_changed_glo;
+    }
+}

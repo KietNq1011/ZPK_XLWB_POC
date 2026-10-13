@@ -1,0 +1,35 @@
+{
+  "formatVersion": "2",
+  "header": {
+    "description": "Browse XLWB engine examples: purpose, step-by-step, sample Excel download",
+    "originalLanguage": "en",
+    "abapLanguageVersion": "cloudDevelopment"
+  },
+  "generalInformation": {
+    "appType": "ui5",
+    "catalogId": "SAP_TC_UI5_REPO_UIAD",
+    "targetMappingTitle": "XLWB Examples"
+  },
+  "ui5AppDetails": {
+    "appId": "zxlwbdemo"
+  },
+  "navigation": {
+    "targetMappingId": "ZXLWBDEMO_UI5R_TM",
+    "semanticObject": "zxlwbdemo",
+    "action": "display",
+    "desktop": true,
+    "tablet": true,
+    "phone": true
+  },
+  "tiles": [
+    {
+      "id": "ZXLWBDEMO_UI5R_AL",
+      "tileType": "static",
+      "isDefault": true,
+      "standard": {
+        "title": "XLWB Examples",
+        "icon": "sap-icon://education"
+      }
+    }
+  ]
+}

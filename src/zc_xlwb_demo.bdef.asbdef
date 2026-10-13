@@ -1,0 +1,34 @@
+managed implementation in class zbp_c_xlwb_demo unique;
+strict ( 2 );
+
+define behavior for ZC_XLWB_DEMO alias Example
+persistent table zxlwb_demo
+lock master
+authorization master ( global )
+{
+  internal update;
+
+  action regenerateFile result [1] $self;
+  static action regenerateAll;
+
+  mapping for zxlwb_demo
+    {
+      ExampleId    = example_id;
+      Seq          = seq;
+      XlwbRef      = xlwb_ref;
+      Title        = title;
+      EngineType   = engine_type;
+      Purpose      = purpose;
+      TemplateForm = template_form;
+      StepContext  = step_context;
+      StepExcel    = step_excel;
+      StepTemplate = step_template;
+      StepEngine   = step_engine;
+      Notes        = notes;
+      FileName     = file_name;
+      MimeType     = mime_type;
+      Content      = content;
+      CreatedBy    = created_by;
+      CreatedAt    = created_at;
+    }
+}
